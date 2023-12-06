@@ -19,7 +19,7 @@ type BankAccount struct {
 // ParseBankAccount - анализирует строку с номером банковского счета
 // и возвращает его детальную структуру.
 // Входной формат: 20 цифр без разделителей и других символов.
-// Возвращает ошибку ErrBankAccount и ErrLen или ErrChar, если строка не соответствует формату.
+// Возвращает ошибку [ErrBankAccount] и [ErrLen] или [ErrChar], если строка не соответствует формату.
 func ParseBankAccount(number string) (BankAccount, error) {
 	if err := validateNumber(number, 20); err != nil {
 		return BankAccount{}, fmt.Errorf("%w: %w", ErrBankAccount, err)
@@ -35,7 +35,7 @@ func ParseBankAccount(number string) (BankAccount, error) {
 	}, nil
 }
 
-// MustParseBankAccount вызывает ParseBankAccount.
+// MustParseBankAccount вызывает [ParseBankAccount].
 // В случае ошибки, завершается паникой.
 func MustParseBankAccount(input string) BankAccount {
 	account, err := ParseBankAccount(input)

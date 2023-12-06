@@ -10,7 +10,7 @@ const KPPReasonUnknown = "Неизвестная причина" // KPPReason.Ti
 
 // KPPReasonFind - возвращает причину постановки на учет в соответствии
 // со Справочником "Причины постановки на учет налогоплательщиков-организаций" (СППУНО).
-// Если код не найден в справочнике, возвращает причину с KPPReason.Title = KPPReasonUnknown.
+// Если код не найден в справочнике, возвращает причину с KPPReason.Title = [KPPReasonUnknown].
 //
 // Источник:
 //   - https://normativ.kontur.ru/document?moduleId=1&documentId=244201

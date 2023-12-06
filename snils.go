@@ -17,8 +17,8 @@ var reSNILS = regexp.MustCompile(`^(\d{3})[\s-]?(\d{3})[\s-]?(\d{3})[\s-]?(\d{2}
 // ParseSNILS - анализирует строку с номером СНИЛС и возвращает номер СНИЛС без дефисов и пробелов.
 // Входной формат: 11 цифр, допускаются разделители пробелы и дефисы: "000-000-000 00".
 // Возвращает ошибки:
-//   - ErrSNILS и ErrLen, если строка не соответствует формату
-//   - ErrSNILS и ErrCheckSum, если контрольная сумма не совпадает
+//   - [ErrSNILS] и [ErrLen], если строка не соответствует формату
+//   - [ErrSNILS] и [ErrCheckSum], если контрольная сумма не совпадает
 func ParseSNILS(number string) (SNILS, error) {
 	matches := reSNILS.FindStringSubmatch(number)
 	if len(matches) != 5 {
@@ -37,7 +37,7 @@ func ParseSNILS(number string) (SNILS, error) {
 	return SNILS(number), nil
 }
 
-// MustParseSNILS вызывает ParseSNILS. В случае ошибки, завершается паникой.
+// MustParseSNILS вызывает [ParseSNILS]. В случае ошибки, завершается паникой.
 func MustParseSNILS(number string) SNILS {
 	snils, err := ParseSNILS(number)
 	if err != nil {
@@ -57,7 +57,7 @@ const (
 //
 // Для генерации случайного номера используется crypto/rand.
 // Если невозможно сгенерировать случайное значение,
-// возвращает ErrSNILS и ErrRand.
+// возвращает [ErrSNILS] и [ErrRand].
 func NewRandomSNILS() (SNILS, error) {
 	bigN, err := rand.Int(rand.Reader, big.NewInt(snilsRandLimit+1))
 	if err != nil {
@@ -67,7 +67,7 @@ func NewRandomSNILS() (SNILS, error) {
 	return SNILS(n + snilsCheckSum(n)), nil
 }
 
-// MustNewRandomSNILS вызывает RandomSNILS. В случае ошибки, завершается паникой.
+// MustNewRandomSNILS вызывает [NewRandomSNILS]. В случае ошибки, завершается паникой.
 func MustNewRandomSNILS() SNILS {
 	snils, err := NewRandomSNILS()
 	if err != nil {
@@ -76,7 +76,7 @@ func MustNewRandomSNILS() SNILS {
 	return snils
 }
 
-// Шаблоны для форматирования номера СНИЛС функцией SNILS.Format.
+// Шаблоны для форматирования номера СНИЛС функцией [SNILS.Format].
 const (
 	SNILSDash      = "000-000-000-00"
 	SNILSSpace     = "000 000 000 00"
@@ -84,7 +84,7 @@ const (
 )
 
 // Format форматирует номер СНИЛС в соответствии с шаблоном:
-// SNILSDash, SNILSSpace или SNILSDashSpace.
+// [SNILSDash], [SNILSSpace] или [SNILSDashSpace].
 func (s SNILS) Format(layout string) string {
 	switch layout {
 	case SNILSDashSpace:

@@ -2,13 +2,12 @@ package datrus
 
 import "fmt"
 
-// http://cbr.ru/PSystem/payment_system/
-
 const lenBIC = 9
 
 // BICParticipantType - тип участника платежной системы.
 type BICParticipantType string
 
+// Типы участников платежной системы
 const (
 	BICDirectParticipant   BICParticipantType = "Участник платежной системы с прямым участием"
 	BICInDirectParticipant BICParticipantType = "Участник платежной системы с косвенным участием"
@@ -24,7 +23,7 @@ type BIC struct {
 
 // ParseBIC - анализирует строку с номером БИК и возвращает его детальную структуру.
 // Входной формат: 9 цифр без разделителей и других символов.
-// Возвращает ошибки ErrBIC и ErrLen или ErrChar, если строка не соответствует формату.
+// Возвращает ошибки [ErrBIC] и [ErrLen] или [ErrChar], если строка не соответствует формату.
 func ParseBIC(number string) (BIC, error) {
 	if err := validateNumber(number, lenBIC); err != nil {
 		return BIC{}, fmt.Errorf("%w: %w", ErrBIC, err)
@@ -45,7 +44,7 @@ func ParseBIC(number string) (BIC, error) {
 	return BIC{Number: number, ParticipantType: participantType}, nil
 }
 
-// MustParseBIC вызывает ParseBIC. В случае ошибки, завершается паникой.
+// MustParseBIC вызывает [ParseBIC]. В случае ошибки, завершается паникой.
 func MustParseBIC(number string) BIC {
 	account, err := ParseBIC(number)
 	if err != nil {
@@ -55,7 +54,7 @@ func MustParseBIC(number string) BIC {
 }
 
 // CheckBankAccount - проверяет соответствие ("ключевку") номера расчетного счета и БИК.
-// В случае несоответствия возвращает ошибки ErrBIC и ErrBICCheck.
+// В случае несоответствия возвращает ошибки [ErrBIC] и [ErrBICCheck].
 func (b BIC) CheckBankAccount(account BankAccount) error {
 	if err := validateBICAccount(b.Number[6:9] + account.Number); err != nil {
 		return fmt.Errorf("%w: %w", ErrBIC, err)
@@ -64,7 +63,7 @@ func (b BIC) CheckBankAccount(account BankAccount) error {
 }
 
 // CheckCorrAccount - проверяет соответствие ("ключевку") номера корреспондентского счета и БИК.
-// В случае несоответствия возвращает ошибки ErrBIC и ErrBICCheck.
+// В случае несоответствия возвращает ошибки [ErrBIC] и [ErrBICCheck].
 func (b BIC) CheckCorrAccount(account BankAccount) error {
 	if err := validateBICAccount("0" + b.Number[4:6] + account.Number); err != nil {
 		return fmt.Errorf("%w: %w", ErrBIC, err)

@@ -9,7 +9,7 @@ type Currency struct {
 	Title  string `json:"title"`  // Наименование валюты. Пример: "ДОЛЛАР США".
 }
 
-const CurrencyUnknown = "Неизвестная валюта" // Currency.Title  неизвестной валюты.
+const CurrencyUnknown = "Неизвестная валюта" // Currency.Title неизвестной валюты.
 
 // IsUnknown - возвращает true для неизвестной валюты
 func (c Currency) IsUnknown() bool {
@@ -18,7 +18,7 @@ func (c Currency) IsUnknown() bool {
 
 // CurrencyFindByCode ищет валюту по ее цифровому коду в соответствии с
 // "ОК (МК (ИСО 4217) 003-97) 014-2000. Общероссийский классификатор валют".
-// Если валюта не найдена, вернет валюту с Currency.Title = CurrencyUnknown.
+// Если валюта не найдена, вернет валюту с Currency.Title = [CurrencyUnknown].
 //
 // Источники
 //   - https://www.cbr.ru/development/mcirabis/kv/
@@ -33,7 +33,7 @@ func CurrencyFindByCode(code string) Currency {
 
 // CurrencyFindBySymbol ищет валюту по ее буквенному коду в соответствии с
 // "ОК (МК (ИСО 4217) 003-97) 014-2000. Общероссийский классификатор валют".
-// Если валюта не найдена, вернет валюту с Currency.Title = CurrencyUnknown.
+// Если валюта не найдена, вернет валюту с Currency.Title = [CurrencyUnknown].
 //
 // Источники
 //   - https://www.cbr.ru/development/mcirabis/kv/

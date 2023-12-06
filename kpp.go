@@ -19,7 +19,7 @@ type KPP struct {
 
 // ParseKPP - анализирует строку с номером КПП и возвращает его детальную структуру.
 // Входной формат: 9 цифр без разделителей и других символов.
-// Возвращает ошибки ErrKPP и ErrLen или ErrChar, если строка не соответствует формату.
+// Возвращает ошибки [ErrKPP] и [ErrLen] или [ErrChar], если строка не соответствует формату.
 func ParseKPP(number string) (KPP, error) {
 	if err := validateNumber(number, lenKPP); err != nil {
 		return KPP{}, fmt.Errorf("%w: %w", ErrKPP, err)
@@ -33,7 +33,7 @@ func ParseKPP(number string) (KPP, error) {
 	}, nil
 }
 
-// MustParseKPP вызывает ParseKPP. В случае ошибки, завершается паникой.
+// MustParseKPP вызывает [ParseKPP]. В случае ошибки, завершается паникой.
 func MustParseKPP(number string) KPP {
 	kpp, err := ParseKPP(number)
 	if err != nil {

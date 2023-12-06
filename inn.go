@@ -30,8 +30,8 @@ type INN struct {
 // ParseINN - анализирует строку с номером ИНН и возвращает его детальную структуру.
 // Входной формат: 10 (для ЮЛ) или 12 цифр (для ФЛ) без разделителей и других символов.
 // Возвращает ошибки:
-//   - ErrINN и ErrLen или ErrChar, если строка не соответствует формату
-//   - ErrINN и ErrCheckSum, если контрольная сумма не совпадает
+//   - [ErrINN] и [ErrLen] или [ErrChar], если строка не соответствует формату
+//   - [ErrINN] и [ErrCheckSum], если контрольная сумма не совпадает
 func ParseINN(number string) (INN, error) {
 	var entityType INNEntityType
 	var err error
@@ -59,7 +59,7 @@ func ParseINN(number string) (INN, error) {
 	}, nil
 }
 
-// MustParseINN вызывает ParseINN. В случае ошибки, завершается паникой.
+// MustParseINN вызывает [ParseINN]. В случае ошибки, завершается паникой.
 func MustParseINN(number string) INN {
 	inn, err := ParseINN(number)
 	if err != nil {
